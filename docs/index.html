@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Research calculator for 3- and 6-month depressive-symptom risk in amyotrophic lateral sclerosis.">
+  <title>ALS Depressive-Symptom Risk Prediction Tool</title>
+  <style>
+    :root{--navy:#12385d;--blue:#1f5f8b;--teal:#2a7f79;--ink:#172b3a;--muted:#627687;--line:#d8e4eb;--paper:#f4f8fa;--amber:#b56a1f;--white:#fff}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#eaf2f6 0,#f8fafb 25rem);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif}
+    .wrap{max-width:1160px;margin:auto;padding:32px 24px 56px}.hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-top:6px solid var(--navy);padding:38px 42px;box-shadow:0 16px 42px rgba(20,55,82,.09)}
+    .hero:after{content:"";position:absolute;width:240px;height:240px;right:-90px;top:-130px;border:30px solid rgba(42,127,121,.09);border-radius:50%}.eyebrow{font:700 12px/1.2 Arial,sans-serif;color:var(--teal);letter-spacing:.14em;text-transform:uppercase}
+    h1{font-size:clamp(34px,5vw,58px);line-height:1.05;color:var(--navy);margin:10px 0 8px;max-width:860px}.subtitle{font-size:20px;color:#315b79;margin:0}.intro{max-width:820px;color:var(--muted);margin:18px 0 0}
+    .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 30px}.strip div{background:#fff;padding:16px 18px}.strip b{display:block;color:var(--navy)}.strip span{font:14px/1.5 Arial,sans-serif;color:var(--muted)}
+    .tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin-bottom:22px}.tab{appearance:none;border:1px solid var(--line);border-bottom:0;background:#edf3f6;color:var(--navy);padding:13px 24px;font:700 16px Arial,sans-serif;cursor:pointer}.tab.active{background:#fff;color:var(--teal);box-shadow:inset 0 4px var(--teal)}
+    .panel{display:none}.panel.active{display:block}.panel-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:24px}.card{background:#fff;border:1px solid var(--line);padding:24px;box-shadow:0 9px 28px rgba(20,55,82,.06)}
+    h2{color:var(--navy);font-size:28px;margin:4px 0 6px}h3{font:700 18px Arial,sans-serif;color:var(--navy);margin:0 0 18px}.hint{color:var(--muted);font:14px/1.55 Arial,sans-serif;margin:0 0 20px}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field label{display:block;font:700 14px Arial,sans-serif;color:#29475d;margin:0 0 6px}.field input{width:100%;border:1px solid #bfcfd9;border-radius:2px;padding:11px 12px;font:16px Arial,sans-serif;color:var(--ink);background:#fff}.field input:focus{outline:3px solid rgba(42,127,121,.16);border-color:var(--teal)}
+    .formula{grid-column:1/-1;background:#f0f7f7;border-left:4px solid var(--teal);padding:12px 14px;color:#315f5c;font:14px/1.55 Arial,sans-serif}.calculate{width:100%;margin-top:20px;border:0;background:var(--navy);color:#fff;padding:14px 20px;font:700 16px Arial,sans-serif;cursor:pointer}.calculate:hover{background:var(--blue)}
+    .result{border-left:7px solid var(--teal);min-height:100%}.result.high{border-left-color:var(--amber)}.prob{font-size:64px;line-height:1;color:var(--navy);font-weight:700;margin:22px 0 8px}.risk{display:inline-block;padding:7px 11px;background:#e7f3f1;color:#17635e;font:700 14px Arial,sans-serif}.high .risk{background:#fff0df;color:#8a4b13}.rule{height:1px;background:var(--line);margin:24px 0}.metric{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid #e9eff3;padding:9px 0;font:14px Arial,sans-serif}.metric b{color:var(--navy)}
+    .notice{margin-top:28px;background:#fff;border:1px solid var(--line);padding:20px 22px}.notice strong{color:var(--navy)}.notice p{font:14px/1.6 Arial,sans-serif;color:var(--muted);margin:6px 0}
+    footer{font:13px/1.6 Arial,sans-serif;color:var(--muted);border-top:1px solid var(--line);margin-top:28px;padding-top:18px}.error{display:none;margin-top:14px;color:#8c2e21;background:#fff0ed;border:1px solid #efc8c1;padding:10px 12px;font:14px Arial,sans-serif}
+    @media(max-width:820px){.wrap{padding:16px 12px 36px}.hero{padding:26px 20px}.strip{grid-template-columns:1fr}.panel-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.prob{font-size:52px}.tabs{overflow:auto}.tab{white-space:nowrap}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero"><div class="eyebrow">Clinical research prediction interface</div><h1>ALS Depressive-Symptom Risk Prediction Tool</h1><p class="subtitle">Baseline estimation of 3- and 6-month risk</p><p class="intro">This English-language research tool applies the formally locked models without online fitting, tuning, or recalibration. It estimates the probability of PHQ-9-defined depressive symptoms and does not provide a clinical diagnosis.</p></header>
+    <section class="strip"><div><b>Locked analysis</b><span>Twenty imputation-specific models are evaluated for each prediction horizon.</span></div><div><b>Fixed classification rules</b><span>Prespecified thresholds are 0.35 at 3 months and 0.28 at 6 months.</span></div><div><b>Browser-only calculation</b><span>Inputs remain on this device and are not transmitted, stored, or logged.</span></div></section>
+    <nav class="tabs" aria-label="Prediction horizon"><button class="tab active" data-target="p3">3-month risk</button><button class="tab" data-target="p6">6-month risk</button></nav>
+
+    <section id="p3" class="panel active">
+      <div class="panel-grid">
+        <form class="card prediction-form" data-outcome="3_month"><div class="eyebrow">Three-month model</div><h2>Enter baseline variables</h2><p class="hint">Use the units shown below. All fields are required.</p><div class="fields">
+          <div class="field"><label>ALSFRS-R (0-48)</label><input name="alsfrsr" type="number" min="0" max="48" step="1" value="38" required></div>
+          <div class="field"><label>FSS (9-63)</label><input name="fss" type="number" min="9" max="63" step="1" value="36" required></div>
+          <div class="field"><label>PSQI (0-21)</label><input name="psqi" type="number" min="0" max="21" step="1" value="8" required></div>
+          <div class="field"><label>Albumin (g/L)</label><input name="albumin" type="number" min="5" max="80" step="0.1" value="40" required></div>
+          <div class="field"><label>Phase angle (degrees)</label><input name="phase" type="number" min="0.1" max="20" step="0.1" value="5" required></div>
+          <div class="field"><label>Lymphocyte count (×10⁹/L)</label><input name="lymph" type="number" min="0.01" max="20" step="0.01" value="1.6" required></div>
+          <div class="field"><label>Neutrophil count (×10⁹/L)</label><input name="neut" type="number" min="0" max="50" step="0.01" value="3.8" required></div>
+          <div class="formula">NLR = neutrophil count ÷ lymphocyte count. The model uses log1p(NLR) = ln(1 + NLR). Neutrophil count is used only to calculate NLR.</div>
+        </div><button class="calculate" type="submit">Calculate 3-month risk</button><div class="error"></div></form>
+        <aside class="card result" aria-live="polite"><div class="eyebrow">Prediction result</div><div class="prob">--</div><span class="risk">Awaiting calculation</span><div class="rule"></div><div class="metric"><span>Prediction horizon</span><b>3 months</b></div><div class="metric"><span>Fixed threshold</span><b>0.350</b></div><div class="metric"><span>Locked models</span><b>20</b></div><div class="metric"><span>Temporal AUROC</span><b>0.729</b></div><p class="hint" style="margin-top:18px">The displayed probability is the arithmetic mean of 20 locked model predictions.</p></aside>
+      </div>
+    </section>
+
+    <section id="p6" class="panel">
+      <div class="panel-grid">
+        <form class="card prediction-form" data-outcome="6_month"><div class="eyebrow">Six-month model</div><h2>Enter baseline variables</h2><p class="hint">Use the units shown below. All fields are required.</p><div class="fields">
+          <div class="field"><label>Age (years)</label><input name="age" type="number" min="18" max="110" step="1" value="55" required></div>
+          <div class="field"><label>ALSFRS-R (0-48)</label><input name="alsfrsr" type="number" min="0" max="48" step="1" value="38" required></div>
+          <div class="field"><label>FSS (9-63)</label><input name="fss" type="number" min="9" max="63" step="1" value="36" required></div>
+          <div class="field"><label>PSQI (0-21)</label><input name="psqi" type="number" min="0" max="21" step="1" value="8" required></div>
+          <div class="field"><label>Albumin (g/L)</label><input name="albumin" type="number" min="5" max="80" step="0.1" value="40" required></div>
+          <div class="field"><label>Hemoglobin (g/L)</label><input name="hb" type="number" min="30" max="250" step="1" value="135" required></div>
+          <div class="field"><label>Lymphocyte count (×10⁹/L)</label><input name="lymph" type="number" min="0.01" max="20" step="0.01" value="1.6" required></div>
+          <div class="field"><label>Neutrophil count (×10⁹/L)</label><input name="neut" type="number" min="0" max="50" step="0.01" value="3.8" required></div>
+          <div class="formula">NLR = neutrophil count ÷ lymphocyte count. The model uses log1p(NLR) = ln(1 + NLR). Neutrophil count is used only to calculate NLR.</div>
+        </div><button class="calculate" type="submit">Calculate 6-month risk</button><div class="error"></div></form>
+        <aside class="card result" aria-live="polite"><div class="eyebrow">Prediction result</div><div class="prob">--</div><span class="risk">Awaiting calculation</span><div class="rule"></div><div class="metric"><span>Prediction horizon</span><b>6 months</b></div><div class="metric"><span>Fixed threshold</span><b>0.280</b></div><div class="metric"><span>Locked models</span><b>20</b></div><div class="metric"><span>Temporal AUROC</span><b>0.768</b></div><p class="hint" style="margin-top:18px">The displayed probability is the arithmetic mean of 20 locked model predictions.</p></aside>
+      </div>
+    </section>
+
+    <section class="notice"><strong>Research-use notice</strong><p>This tool is intended for academic demonstration and research use. Predicted risk should be interpreted together with validated symptom scales, clinical interviews, and professional assessment. It must not be used as the sole basis for diagnosis or treatment.</p><p>No names, identifiers, hospital numbers, contact details, or other personal information should be entered.</p></section>
+    <footer>ALS Depressive-Symptom Risk Prediction Tool · Locked model release 2026-07-15 · Client-side implementation validated against the original Python pipelines.</footer>
+  </main>
+  <script>
+    let bank;
+    const sigmoid=x=>x>=0?1/(1+Math.exp(-x)):Math.exp(x)/(1+Math.exp(x));
+    const standardized=(raw,m,float32=false)=>raw.map((v,i)=>float32?Math.fround((v-m.mean[i])/m.scale[i]):(v-m.mean[i])/m.scale[i]);
+    function treeValue(node,x){if(Object.prototype.hasOwnProperty.call(node,"leaf"))return node.leaf;const i=Number(node.split.slice(1));const id=x[i]<node.split_condition?node.yes:node.no;return treeValue(node.children.find(c=>c.nodeid===id),x)}
+    function predict3(raw){return bank.models["3_month"].reduce((sum,m)=>{const x=standardized(raw,m);const margin=m.intercept+x.reduce((s,v,i)=>s+v*m.coefficient[i],0);return sum+sigmoid(margin)},0)/20}
+    function predict6(raw){let sum=Math.fround(0);for(const m of bank.models["6_month"]){const x=standardized(raw,m,true);const margin=m.base_margin+m.trees.reduce((s,t)=>s+treeValue(t,x),0);sum=Math.fround(sum+Math.fround(sigmoid(margin)))}return Math.fround(sum/20)}
+    function values(form){const v=Object.fromEntries(new FormData(form).entries());Object.keys(v).forEach(k=>v[k]=Number(v[k]));if(!Object.values(v).every(Number.isFinite)||v.lymph<=0)throw new Error("Please enter valid numeric values; lymphocyte count must be greater than zero.");const logNlr=Math.log1p(v.neut/v.lymph);return form.dataset.outcome==="3_month"?[v.alsfrsr,v.fss,v.psqi,v.albumin,v.phase,v.lymph,logNlr]:[v.alsfrsr,v.fss,v.psqi,logNlr,v.albumin,v.hb,v.lymph,v.age]}
+    document.querySelectorAll(".tab").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));button.classList.add("active");document.getElementById(button.dataset.target).classList.add("active")}));
+    document.querySelectorAll(".prediction-form").forEach(form=>form.addEventListener("submit",event=>{event.preventDefault();const error=form.querySelector(".error");try{if(!bank)throw new Error("The locked model package is still loading. Please try again in a moment.");const p=form.dataset.outcome==="3_month"?predict3(values(form)):predict6(values(form));const threshold=bank.thresholds[form.dataset.outcome];const result=form.parentElement.querySelector(".result");result.querySelector(".prob").textContent=p.toFixed(3);result.querySelector(".risk").textContent=p>=threshold?"Higher predicted risk":"Lower predicted risk";result.classList.toggle("high",p>=threshold);error.style.display="none"}catch(e){error.textContent=e.message;error.style.display="block"}}));
+    fetch("model_data.json").then(r=>{if(!r.ok)throw new Error("Model package could not be loaded");return r.json()}).then(data=>bank=data).catch(e=>document.querySelectorAll(".error").forEach(x=>{x.textContent=e.message;x.style.display="block"}));
+  </script>
+</body>
+</html>

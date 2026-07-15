@@ -2,6 +2,14 @@
 
 This project is a research-oriented risk prediction tool accompanying an academic manuscript. The application loads only the formally locked models and does not retrain, select, recalibrate, or modify them.
 
+## Online calculator
+
+The public, English-language calculator is available at:
+
+**https://jijifujiji123000.github.io/als-depression-risk-prediction-tool/**
+
+The public version performs inference entirely within the user's browser. It contains exported scaler, logistic-regression, and XGBoost tree parameters from the same 40 locked artifacts used by the Streamlit implementation. No patient inputs are sent to a server.
+
 ## Locked models
 
 - 3-month outcome: logistic regression, fixed threshold 0.350, and 20 imputation-specific models.
@@ -35,6 +43,7 @@ The tests use deidentified cases from the formal patient-level prediction files.
 - Patient-input logs are not created, and no third-party patient-data API is called.
 - Google Analytics is not used, and patient data are not transmitted to external analytics services.
 - Inputs are not retained after the Streamlit session is refreshed or terminated.
+- In the public GitHub Pages version, calculations occur locally in the browser and input values are not transmitted to GitHub or any prediction API.
 
 ## Important limitations
 
