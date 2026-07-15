@@ -1,0 +1,3 @@
+﻿Outcome,Outcome label,Final model,Threshold,Selected variables,Parameters,Inner-CV Brier,Development OOF N,Temporal validation N
+3_month,recorded 3-month depressive-symptom status,Logistic regression,0.35,alsfrsr_total | fss_total | psqi_total | 检验_白蛋白_首次 | InBody_相位角_首次 | 检验_淋巴细胞绝对值_首次 | log1p_NLR,"{""C"": 0.1, ""class_weight"": null}",0.13420402328636574,385,168
+6_month,recorded 6-month depressive-symptom status,XGBoost,0.28,alsfrsr_total | fss_total | psqi_total | log1p_NLR | 检验_白蛋白_首次 | 检验_血红蛋白_首次 | 检验_淋巴细胞绝对值_首次 | 基线_年龄（岁）：,"{""colsample_bytree"": 0.8, ""learning_rate"": 0.03, ""max_depth"": 2, ""min_child_weight"": 1, ""subsample"": 0.8}",0.1553039491176605,383,156

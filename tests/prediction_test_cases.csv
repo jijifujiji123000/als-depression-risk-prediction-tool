@@ -1,0 +1,11 @@
+﻿case_id,outcome,age,alsfrsr,fss,psqi,albumin,phase_angle,hemoglobin,lymphocytes,neutrophils,expected_probability,expected_risk
+3M-01,3_month,,44.0,12.0,4.0,38.5,5.2,,2.53,5.79,0.0344570024914823,Lower predicted risk
+3M-02,3_month,,42.0,24.0,6.0,41.3,4.2,,1.22,3.49,0.1051736708415943,Lower predicted risk
+3M-03,3_month,,44.0,44.0,10.0,38.4,5.5,,2.89,3.23,0.165413610253506,Lower predicted risk
+3M-04,3_month,,28.0,20.0,9.0,43.7,4.2,,1.17,3.72,0.2428641038653772,Lower predicted risk
+3M-05,3_month,,40.0,52.0,12.0,36.8,3.8,,2.25,3.45,0.4251806223697486,Higher predicted risk
+6M-01,6_month,56.0,41.0,11.0,1.0,42.0,,153.0,2.42,4.36,0.1149217039346695,Lower predicted risk
+6M-02,6_month,67.0,38.0,40.0,4.0,46.4,,141.0,1.66,4.39,0.1525079756975174,Lower predicted risk
+6M-03,6_month,58.0,24.0,30.0,8.0,42.6,,145.0,2.92,5.84,0.2038392573595047,Lower predicted risk
+6M-04,6_month,61.0,32.0,57.0,4.0,34.1,,126.0,2.16,2.82,0.2780345678329468,Lower predicted risk
+6M-05,6_month,69.0,22.0,60.0,4.0,34.7,,118.0,0.92,3.26,0.4469136595726013,Higher predicted risk
