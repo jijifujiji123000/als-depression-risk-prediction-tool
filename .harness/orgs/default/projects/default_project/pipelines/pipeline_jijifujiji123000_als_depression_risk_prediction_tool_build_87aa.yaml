@@ -1,0 +1,29 @@
+pipeline:
+  id: pipeline_jijifujiji123000_als_depression_risk_prediction_tool_build_87aa
+  name: pipeline_jijifujiji123000_als_depression_risk_prediction_tool_build_87aa
+  stages:
+    - id: build_and_test
+      name: Build and Test
+      runtime: cloud
+      clone:
+        enabled: true
+      cache:
+        enabled: true
+      steps:
+        - id: run_tests
+          name: Run Tests
+          run:
+            container:
+              image: python:3.11-slim
+            shell: bash
+            script: |-
+              pip install --upgrade pip
+              pip install -r requirements.txt
+              mkdir -p .harness/reports
+              pytest --junitxml=.harness/reports/junit.xml tests/
+            report:
+              type: junit
+              paths:
+                - .harness/reports/junit.xml
+  tags:
+    onboarding: "true"
